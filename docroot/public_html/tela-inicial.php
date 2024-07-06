@@ -1,5 +1,5 @@
 <?php
-require("./app/login/_sessao.php");
+require("../app/login/_sessao.php");
 
 ?>
 
@@ -11,25 +11,25 @@ require("./app/login/_sessao.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Carteira - Tela Inicial</title>
-    <link rel="stylesheet" href="./app/login/css/estilo.css">
-    <link rel="shortcut icon" href="logo_minha_carteira_ICO.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../app/login/css/estilo.css">
+    <link rel="shortcut icon" href="img/logo_minha_carteira_ICO.ico" type="image/x-icon">
 
 </head>
 
 <body>
     <div class="container">
-        <h1 class="logo-minha-carteira"><img src="./logo_minha_carteira1.png" width="" alt=""></h1>
+        <h1 class="logo-minha-carteira"><img src="img/logo_minha_carteira1.png" width="" alt=""></h1>
         <h1 class="titulo-minha-carteira">Minha Carteira - Controle Financeiro Pessoal</h1>
     </div>
-    <?php include("./app/login/_menu-pagina-inicial.php"); ?>
+    <?php include("../app/login/_menu-pagina-inicial.php"); ?>
     <br><br>
     <div class="centralizar-h">
         <p>
             <?php
             if (isset($_SESSION['nome'])) {
-                require_once("./app/login/_conexao/conexao.php");
-                require_once("./app/login/ver_saldo.php");
-                require_once("./app/login/funcoes_gerais.php");
+                require_once("../app/login/_conexao/conexao.php");
+                require_once("../app/login/ver_saldo.php");
+                require_once("../app/login/funcoes_gerais.php");
                 $saldoTelaPrincipal = getSaldo($_SESSION['codigo'], $conexao);
                 echo "<p style='margin-top: 10px;font-size: 152%; align-items: self-end; font-family:Verdana, Geneva, Tahoma, sans-serif; color:#042882; font-weight:bold;'>";
                 echo "Olá, " . $_SESSION["nome"] . "<br>";
@@ -131,7 +131,7 @@ require("./app/login/_sessao.php");
     </style>
 
     <?php
-    $conn = mysqli_connect("localhost", "root", "", "minhacarteira");
+    $conn = mysqli_connect("localhost", "usuario_app", "abcd1234", "db_minhacarteira");
     ?>
 
     <?php
@@ -139,8 +139,8 @@ require("./app/login/_sessao.php");
     $sqlContasVencidas = "SELECT descricao, data_vencimento, valor 
                       FROM lancamentos_despesas 
                       WHERE data_vencimento < CURDATE() 
-                      AND situacao != 'Pago'
-                      AND codigo_usuario = $idUsuario
+                      AND pago != 1
+                      AND id_usuario = $idUsuario
                       ORDER BY data_vencimento ASC 
                       LIMIT 5";
 
