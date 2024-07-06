@@ -1,9 +1,10 @@
 <?php
 
+
 // valida se os dados vieram pelo método POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require_once("./app/login/_conexao/conexao.php");
+    require_once(dirname(__DIR__,1)."/app/login/_conexao/conexao.php");
 
     $usuario = filter_input(INPUT_POST, "usuario", FILTER_SANITIZE_EMAIL);
     $senha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -18,12 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $comandoSQL->execute();
 
         if ($comandoSQL->rowCount() > 0) {
-            $linha = $comandoSQL->fetch();
+            $linha = $comandoSQL->fetch();        
 
             // Adicionando logs para depuração
-            error_log("Situação do usuário: " . $linha["situacao"]);
+            error_log("Situação do usuário: " . $linha["fg_ativo"]);
 
-            if ($linha["status"] === "Desativado") {
+            if ($linha["fg_ativo"] == 0) {
                 // Se a situação do usuário é "Desativado", redireciona para uma página de erro
                 header("Location: ./index.php?status=contaDesativada");
                 exit();
@@ -31,9 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($senha, $linha["senha"])) {
                 session_start();
+                
                 $_SESSION["nome"] = $linha["nome"];
-                $_SESSION["nivel"] = $linha["nivel"];
-                $_SESSION["codigo"] = $linha["codigo"];
+                $_SESSION["nivel"] = $linha["id_nivel_usuario"];
+                $_SESSION["codigo"] = $linha["id"];
+                
         
                 header("Location: ./tela-inicial.php?status=sucesso");
                 exit();

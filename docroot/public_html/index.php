@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 // iniciando uma sessão do usuário
 session_start();
@@ -22,7 +22,7 @@ dump($_SESSION);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Carteria - Login de Usuário</title>
     <link rel="stylesheet" href="/../app/login/css/estilo.css">
-    <link rel="shortcut icon" href="/img/logo_minha_carteira_ICO.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/../img/logo_minha_carteira_ICO.ico" type="image/x-icon">
     <script src="/../app/login/js/verifica_cadastros.js"></script>
     <style>
         input {

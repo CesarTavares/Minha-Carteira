@@ -1,8 +1,8 @@
 <?php
 
-    $dns = "mysql:host=localhost;dbname=minhacarteira;charset=utf8";
-    $user = "root";
-    $pass = "";
+    $dns = "mysql:host=localhost;dbname=db_minhacarteira;charset=utf8";
+    $user = "usuario_app";
+    $pass = "abcd1234";
 
     try{
         $conexao = new PDO($dns, $user, $pass);
